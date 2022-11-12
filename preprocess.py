@@ -31,6 +31,9 @@ if not os.listdir(clean):
     # typos in fields - BE ON THE LOOKOUT FOR MORE!
     err_1 = re.compile(r'RD\-SHOOL\-[0-9]')
     err_2 = re.compile(r'RD\-ADRESS\-[0-9]')
+    
+    # interviewer lines
+    inter = re.compile(r'[iI]nt')
 
     # loop through the files
     for i in range(len(files)):
@@ -44,7 +47,7 @@ if not os.listdir(clean):
                     line_parts = lines[i].split('\t') # split the line into parts (tab-separated)
                     
                     # exclude lines that are spoken by the interviewer or not dialogue
-                    if 'int' in line_parts[1] or not_dialogue.match(line_parts[3]):
+                    if inter.search(line_parts[1]) or not_dialogue.match(line_parts[3]):
                         continue
                     
                     # clean the dialogue generally
